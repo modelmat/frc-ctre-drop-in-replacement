@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 #include <frc/ADXRS450_Gyro.h>
 #include <frc/Encoder.h>
-#include <frc/PWMSparkMax.h>
 #include <frc/SpeedControllerGroup.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/geometry/Pose2d.h>
@@ -65,20 +65,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
    * @return the average of the TWO encoder readings
    */
   double GetAverageEncoderDistance();
-
-  /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  frc::Encoder& GetLeftEncoder();
-
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  frc::Encoder& GetRightEncoder();
 
   /**
    * Sets the max output of the drive.  Useful for scaling the drive to drive

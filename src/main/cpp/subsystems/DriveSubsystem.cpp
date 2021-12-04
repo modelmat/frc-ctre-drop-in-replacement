@@ -75,14 +75,6 @@ double DriveSubsystem::GetAverageEncoderDistance() {
   return (m_leftEncoder.GetDistance() + m_rightEncoder.GetDistance()) / 2.0;
 }
 
-frc::Encoder& DriveSubsystem::GetLeftEncoder() {
-  return m_leftEncoder;
-}
-
-frc::Encoder& DriveSubsystem::GetRightEncoder() {
-  return m_rightEncoder;
-}
-
 void DriveSubsystem::SetMaxOutput(double maxOutput) {
   m_drive.SetMaxOutput(maxOutput);
 }
