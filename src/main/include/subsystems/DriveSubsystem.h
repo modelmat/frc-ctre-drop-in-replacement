@@ -5,6 +5,7 @@
 #pragma once
 
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/ADXRS450_Gyro.h>
 #include <frc/Encoder.h>
 #include <frc/SpeedControllerGroup.h>
@@ -19,6 +20,7 @@
 #include <units/voltage.h>
 
 #include "Constants.h"
+#include "PhoenixSpeedControllerGroup.h"
 
 class DriveSubsystem : public frc2::SubsystemBase {
  public:
@@ -114,16 +116,20 @@ class DriveSubsystem : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
 
   // The motor controllers
-  frc::PWMSparkMax m_left1{DriveConstants::kLeftMotor1Port};
-  frc::PWMSparkMax m_left2{DriveConstants::kLeftMotor2Port};
-  frc::PWMSparkMax m_right1{DriveConstants::kRightMotor1Port};
-  frc::PWMSparkMax m_right2{DriveConstants::kRightMotor2Port};
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX m_left1{
+      DriveConstants::kLeftMotor1Port};
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_left2{
+      DriveConstants::kLeftMotor2Port};
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX m_right1{
+      DriveConstants::kRightMotor1Port};
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_right2{
+      DriveConstants::kRightMotor2Port};
 
   // The motors on the left side of the drive
-  frc::SpeedControllerGroup m_leftMotors{m_left1, m_left2};
+  PhoenixSpeedControllerGroup m_leftMotors{m_left1, m_left2};
 
   // The motors on the right side of the drive
-  frc::SpeedControllerGroup m_rightMotors{m_right1, m_right2};
+  PhoenixSpeedControllerGroup m_rightMotors{m_right1, m_right2};
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};

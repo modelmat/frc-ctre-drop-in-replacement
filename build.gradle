@@ -70,14 +70,14 @@ model {
 
             sources.cpp {
                 source {
-                    srcDir 'src/main/cpp'
+                    srcDirs 'src/main/cpp', 'ctre-shims'
                     include '**/*.cpp', '**/*.cc'
                 }
                 exportedHeaders {
-                    srcDir 'src/main/include'
-                    if (includeSrcInIncludeRoot) {
-                        srcDir 'src/main/cpp'
-                    }
+                    srcDirs 'src/main/include', 'ctre-shims'
+                    // if (includeSrcInIncludeRoot) {
+                    //     srcDir 'src/main/cpp'
+                    // }
                 }
             }
 
