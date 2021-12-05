@@ -103,3 +103,26 @@ model {
         }
     }
 }
+
+// Thanks frc3512/Robot-2020 !
+task buildAthena {
+    dependsOn 'frcUserProgramLinuxathenaReleaseExecutable'
+}
+
+task test {
+    dependsOn 'testRelease'
+}
+
+task testDebug {
+    dependsOn 'runFrcUserProgramTest' + wpi.platforms.desktop.capitalize() + 'DebugGoogleTestExe'
+}
+
+task testRelease {
+    dependsOn 'runFrcUserProgramTest' + wpi.platforms.desktop.capitalize() + 'ReleaseGoogleTestExe'
+}
+
+task simulate(type: Exec) {
+    dependsOn 'simulateFrcUserProgram' + wpi.platforms.desktop.capitalize() + 'DebugExecutable'
+    workingDir 'build/stdout'
+    commandLine 'tail', '-f', 'simulateFrcUserProgram' + wpi.platforms.desktop.capitalize() + 'DebugExecutable.log'
+}
