@@ -7,19 +7,19 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 #include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/ADXRS450_Gyro.h>
-#include <frc/Encoder.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/geometry/Pose2d.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/simulation/ADXRS450_GyroSim.h>
 #include <frc/simulation/DifferentialDrivetrainSim.h>
-#include <frc/simulation/EncoderSim.h>
 #include <frc/smartdashboard/Field2d.h>
 #include <frc2/command/SubsystemBase.h>
 #include <units/voltage.h>
 
 #include "Constants.h"
 #include "PhoenixMotorControllerGroup.h"
+#include "TalonEncoder.h"
+#include "TalonEncoderSim.h"
 
 class DriveSubsystem : public frc2::SubsystemBase {
  public:
@@ -134,14 +134,10 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   // The left-side drive encoder
-  frc::Encoder m_leftEncoder{DriveConstants::kLeftEncoderPorts[0],
-                             DriveConstants::kLeftEncoderPorts[1],
-                             DriveConstants::kLeftEncoderReversed};
+  TalonEncoder m_leftEncoder{m_left1, DriveConstants::kLeftEncoderReversed};
 
   // The right-side drive encoder
-  frc::Encoder m_rightEncoder{DriveConstants::kRightEncoderPorts[0],
-                              DriveConstants::kRightEncoderPorts[1],
-                              DriveConstants::kRightEncoderReversed};
+  TalonEncoder m_rightEncoder{m_right1, DriveConstants::kRightEncoderReversed};
 
   // The gyro sensor
   frc::ADXRS450_Gyro m_gyro;
@@ -158,8 +154,8 @@ class DriveSubsystem : public frc2::SubsystemBase {
       DriveConstants::kWheelDiameter / 2,
       {0.001, 0.001, 0.0001, 0.1, 0.1, 0.005, 0.005}};
 
-  frc::sim::EncoderSim m_leftEncoderSim{m_leftEncoder};
-  frc::sim::EncoderSim m_rightEncoderSim{m_rightEncoder};
+  TalonSRXEncoderSim m_leftEncoderSim{m_leftEncoder};
+  TalonSRXEncoderSim m_rightEncoderSim{m_rightEncoder};
   frc::sim::ADXRS450_GyroSim m_gyroSim{m_gyro};
 
   // The Field2d class shows the field in the sim GUI.
