@@ -88,6 +88,7 @@ class BaseTalonEncoderSim {
    *
    * Defaults to 64. See also, CTRE's ConfigVelocityMeasurementPeriod().
    * https://docs.ctre-phoenix.com/en/stable/ch14_MCSensor.html#changing-velocity-measurement-parameters
+   * See also, the note in Measurement-Delays.md in the root of this repository.
    *
    * @param samplesToAverage The number of samples to average, one of
    *                         1, 2, 4, 8, 16, 32, or 64.
@@ -103,6 +104,7 @@ class BaseTalonEncoderSim {
    *
    * Defaults to 64. See also, CTRE's ConfigVelocityMeasurementPeriod().
    * https://docs.ctre-phoenix.com/en/stable/ch14_MCSensor.html#changing-velocity-measurement-parameters
+   * See also, the note in Measurement-Delays.md in the root of this repository.
    *
    * @return The number of samples being averaged (one of 1, 2, 4, 8, 16, 32,
    *         or 64).
