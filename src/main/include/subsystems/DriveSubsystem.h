@@ -67,20 +67,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
   double GetAverageEncoderDistance();
 
   /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  frc::Encoder& GetLeftEncoder();
-
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  frc::Encoder& GetRightEncoder();
-
-  /**
    * Sets the max output of the drive.  Useful for scaling the drive to drive
    * more slowly.
    *
