@@ -97,8 +97,3 @@ model {
         }
     }
 }
-
-// Thanks frc3512/Robot-2020 !
-task buildAthena {
-    dependsOn 'frcUserProgramLinuxathenaReleaseExecutable'
-}
