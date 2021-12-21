@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import ctre_shims.PhoenixMotorControllerGroup;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,8 +17,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.simulation.ADXRS450_GyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.simulation.EncoderSim;
@@ -25,17 +26,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
-  private final PWMSparkMax m_left1 = new PWMSparkMax(DriveConstants.kLeftMotor1Port);
-  private final PWMSparkMax m_left2 = new PWMSparkMax(DriveConstants.kLeftMotor2Port);
+  private final WPI_TalonSRX m_left1 = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
+  private final WPI_VictorSPX m_left2 = new WPI_VictorSPX(DriveConstants.kLeftMotor2Port);
 
   // The motors on the left side of the drive.
-  private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_left1, m_left2);
+  private final PhoenixMotorControllerGroup m_leftMotors =
+      new PhoenixMotorControllerGroup(m_left1, m_left2);
 
-  private final PWMSparkMax m_right1 = new PWMSparkMax(DriveConstants.kRightMotor1Port);
-  private final PWMSparkMax m_right2 = new PWMSparkMax(DriveConstants.kRightMotor2Port);
+  private final WPI_TalonSRX m_right1 = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
+  private final WPI_VictorSPX m_right2 = new WPI_VictorSPX(DriveConstants.kRightMotor2Port);
 
   // The motors on the right side of the drive.
-  private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_right1, m_right2);
+  private final PhoenixMotorControllerGroup m_rightMotors =
+      new PhoenixMotorControllerGroup(m_right1, m_right2);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
