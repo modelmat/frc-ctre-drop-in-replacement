@@ -7,19 +7,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import ctre_shims.PhoenixMotorControllerGroup;
+import ctre_shims.TalonEncoder;
+import ctre_shims.TalonEncoderSim;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.ADXRS450_GyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
-import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -44,18 +44,12 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   // The left-side drive encoder
-  private final Encoder m_leftEncoder =
-      new Encoder(
-          DriveConstants.kLeftEncoderPorts[0],
-          DriveConstants.kLeftEncoderPorts[1],
-          DriveConstants.kLeftEncoderReversed);
+  private final TalonEncoder m_leftEncoder =
+      new TalonEncoder(m_left1, DriveConstants.kLeftEncoderReversed);
 
   // The right-side drive encoder
-  private final Encoder m_rightEncoder =
-      new Encoder(
-          DriveConstants.kRightEncoderPorts[0],
-          DriveConstants.kRightEncoderPorts[1],
-          DriveConstants.kRightEncoderReversed);
+  private final TalonEncoder m_rightEncoder =
+      new TalonEncoder(m_right1, DriveConstants.kRightEncoderReversed);
 
   // The gyro sensor
   private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
@@ -65,8 +59,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   // These classes help us simulate our drivetrain
   public DifferentialDrivetrainSim m_drivetrainSimulator;
-  private EncoderSim m_leftEncoderSim;
-  private EncoderSim m_rightEncoderSim;
+  private TalonEncoderSim m_leftEncoderSim;
+  private TalonEncoderSim m_rightEncoderSim;
   // The Field2d class shows the field in the sim GUI
   private Field2d m_fieldSim;
   private ADXRS450_GyroSim m_gyroSim;
@@ -97,8 +91,8 @@ public class DriveSubsystem extends SubsystemBase {
               VecBuilder.fill(0, 0, 0.0001, 0.1, 0.1, 0.005, 0.005));
 
       // The encoder and gyro angle sims let us set simulated sensor readings
-      m_leftEncoderSim = new EncoderSim(m_leftEncoder);
-      m_rightEncoderSim = new EncoderSim(m_rightEncoder);
+      m_leftEncoderSim = new TalonEncoderSim(m_leftEncoder);
+      m_rightEncoderSim = new TalonEncoderSim(m_rightEncoder);
       m_gyroSim = new ADXRS450_GyroSim(m_gyro);
 
       // the Field2d class lets us visualize our robot in the simulation GUI.
